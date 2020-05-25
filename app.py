@@ -59,47 +59,47 @@ def signup():
             user = User.signup(
                 username=form.username.data,
                 password=form.password.data,
-                image_url=form.image_url.data or User.image_url.default.arg,
+                image_url=form.image_url.data or User.image_url.default.arg
             )
             db.session.commit()
 
         except IntegrityError:
             flash("Username already taken", 'danger text-center')
-            return render_template('users/signup.html', form=form)
+            return render_template('signup.html', form=form)
 
         login_user(user)
 
-        return redirect("/")
+        return redirect("/user")
 
     else:
-        return render_template('users/signup.html', form=form)
+        return render_template('signup.html', form=form)
 
 
-@app.route('/login', methods=["GET", "POST"])
-def login():
-    """Handle user login."""
+# @app.route('/login', methods=["GET", "POST"])
+# def login():
+#     """Handle user login."""
 
-    form = LoginForm()
+#     form = LoginForm()
 
-    if form.validate_on_submit():
-        user = User.authenticate(form.username.data,
-                                 form.password.data)
+#     if form.validate_on_submit():
+#         user = User.authenticate(form.username.data,
+#                                  form.password.data)
 
-        if user:
-            do_login(user)
-            flash(f"Hello, {user.username}!", 'success  text-center')
-            return redirect("/")
+#         if user:
+#             do_login(user)
+#             flash(f"Hello, {user.username}!", 'success  text-center')
+#             return redirect("/")
 
-        flash("Invalid credentials.", 'danger text-center')
+#         flash("Invalid credentials.", 'danger text-center')
 
-    return render_template('users/login.html', form=form)
+#     return render_template('users/login.html', form=form)
 
 
-@app.route('/logout')
-def logout():
-    """Handle logout of user."""
+# @app.route('/logout')
+# def logout():
+#     """Handle logout of user."""
 
-    do_logout()
-    flash('Goodbye!', 'success text-center')
+#     do_logout()
+#     flash('Goodbye!', 'success text-center')
 
-    return redirect('/login')
+#     return redirect('/login')
