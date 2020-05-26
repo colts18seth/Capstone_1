@@ -48,6 +48,7 @@ def logout_user():
     if CURR_USER_KEY in session:
         del session[CURR_USER_KEY]
 
+
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """ Handle user signup. """
