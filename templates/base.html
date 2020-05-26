@@ -11,6 +11,13 @@
 </head>
 
 <body>
+    <nav class="navbar navbar-dark bg-dark justify-content-around">
+        {% block nav-left %}
+        {% endblock %}
+        <span class="navbar-brand ">You Guessed It!</span>
+        {% block nav-right %}
+        {% endblock %}
+    </nav>
 
     {% block content %}
     {% endblock %}

@@ -66,10 +66,10 @@ class User_Category(db.Model):
 
     __tablename__ = "user-category"
 
-    user_id = db.Column(db.Integer, primary_key=True,
-                                        db.ForeignKey("users.id"))
-    category_id = db.Column(db.Integer, primary_key=True,
-                                        db.ForeignKey("categories.id"))
+    user_id = db.Column(db.Integer,
+                                        db.ForeignKey("users.id"), primary_key=True)
+    category_id = db.Column(db.Integer,
+                                        db.ForeignKey("categories.id"), primary_key=True)
     quizzes_taken = db.Column(db.Integer, nullable=False, default=0)
     questions_answered = db.Column(db.Integer, nullable=False,
                                                             default=0)

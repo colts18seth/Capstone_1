@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import 
+from forms import AddUserForm, AddImageForm, LoginForm
 from models import db, connect_db, User, Category, User_Category
 
 CURR_USER_KEY = "curr_user"
@@ -75,6 +75,11 @@ def signup():
     else:
         return render_template('signup.html', form=form)
 
+######################
+#delete after testing
+@app.route("/")
+def root():
+    return render_template("base.html")
 
 # @app.route('/login', methods=["GET", "POST"])
 # def login():
