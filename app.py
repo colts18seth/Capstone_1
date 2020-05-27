@@ -89,10 +89,10 @@ def login():
 
     if form.validate_on_submit():
         user = User.authenticate(form.username.data,
-                                                form.password.data)
+                                form.password.data)
 
         if user:
-            do_login(user)
+            login_user(user)
             flash(f"Hello, {user.username}!", 'success  text-center')
             return redirect("/user")
 
@@ -101,11 +101,24 @@ def login():
     return render_template('login.html', form=form)
 
 
-# @app.route('/logout')
-# def logout():
-#     """Handle logout of user."""
+@app.route('/logout')
+def logout():
+    """Handle logout of user."""
 
-#     do_logout()
-#     flash('Goodbye!', 'success text-center')
+    logout_user()
+    flash('Goodbye!', 'success text-center')
 
-#     return redirect('/login')
+    return redirect('/login')
+
+
+##################################################
+#User Routes
+##################################################
+
+@app.route('/user')
+def user_details():
+    """Show User Details"""
+
+    user = g.user
+
+    return render_template("user.html", user=user)   
