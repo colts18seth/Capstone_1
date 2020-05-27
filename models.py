@@ -15,7 +15,8 @@ class User(db.Model):
     password = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.Text, default="/static/default-pic.png")
 
-    categories = db.relationship("Category", backref="users")
+    categories = db.relationship("Category", 
+                                                    secondary="user_category" ,backref="users")
 
     def __repr__(self):
         return f"<User #{self.id} - {self.username}"
@@ -64,7 +65,7 @@ class Category(db.Model):
 class User_Category(db.Model):
     """Relates User and Category Models """
 
-    __tablename__ = "user-category"
+    __tablename__ = "user_category"
 
     user_id = db.Column(db.Integer,
                                         db.ForeignKey("users.id"), primary_key=True)

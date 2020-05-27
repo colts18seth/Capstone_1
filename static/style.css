@@ -1,0 +1,12 @@
+.heading {
+    font-size: 3rem;
+}
+
+small {
+    margin-left: -8rem;
+    font-size: .7rem;
+}
+
+a:hover {
+    text-decoration: none;
+}

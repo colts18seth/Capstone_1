@@ -49,6 +49,11 @@ def logout_user():
         del session[CURR_USER_KEY]
 
 
+@app.route("/")
+def root():
+    return redirect("/signup")
+
+
 @app.route('/signup', methods=["GET", "POST"])
 def signup():
     """ Handle user signup. """
@@ -75,30 +80,25 @@ def signup():
     else:
         return render_template('signup.html', form=form)
 
-######################
-#delete after testing
-@app.route("/")
-def root():
-    return render_template("base.html")
 
-# @app.route('/login', methods=["GET", "POST"])
-# def login():
-#     """Handle user login."""
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    """Handle user login."""
 
-#     form = LoginForm()
+    form = LoginForm()
 
-#     if form.validate_on_submit():
-#         user = User.authenticate(form.username.data,
-#                                  form.password.data)
+    if form.validate_on_submit():
+        user = User.authenticate(form.username.data,
+                                                form.password.data)
 
-#         if user:
-#             do_login(user)
-#             flash(f"Hello, {user.username}!", 'success  text-center')
-#             return redirect("/")
+        if user:
+            do_login(user)
+            flash(f"Hello, {user.username}!", 'success  text-center')
+            return redirect("/user")
 
-#         flash("Invalid credentials.", 'danger text-center')
+        flash("Invalid credentials.", 'danger text-center')
 
-#     return render_template('users/login.html', form=form)
+    return render_template('login.html', form=form)
 
 
 # @app.route('/logout')

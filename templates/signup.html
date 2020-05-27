@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container border border-dark mt-5 p-5 pt-0 bg-light">
+    <h2 class="pb-5 text-center">Sign Up Here</h2>
+    <form method="POST" id="user_form">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        <span class="text-danger p-3">{{ error }}</span>
+        {% endfor %}
+        {{ field(placeholder=field.label.text, class="form-control") }}
+        {% endfor %}
+
+        <button class="btn btn-dark btn-lg btn-block mt-3">Sign me up!</button>
+        <div class="d-flex justify-content-center mt-3">
+            <a href="/login" class="d-flex align-items-center">
+                <small class="text-dark mr-3">
+                    Already Signed Up?
+                </small>
+                <button type="button" class="btn btn-dark btn-lg">
+                    Login
+                </button>
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
