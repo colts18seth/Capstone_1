@@ -19,7 +19,7 @@ class User(db.Model):
                                                     secondary="user_category" ,backref="users")
 
     def __repr__(self):
-        return f"<User #{self.id} - {self.username}"
+        return f"<User #{self.id} - {self.username}>"
 
     @classmethod
     def signup(cls, username, password, image_url):

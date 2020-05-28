@@ -70,7 +70,7 @@ def signup():
             db.session.commit()
 
         except IntegrityError:
-            flash("Username already taken", 'danger text-center')
+            flash("Username already taken!", 'text-danger text-center')
             return render_template('signup.html', form=form)
 
         login_user(user)
@@ -93,10 +93,10 @@ def login():
 
         if user:
             login_user(user)
-            flash(f"Hello, {user.username}!", 'success  text-center')
+            flash(f"Hello, {user.username}!", 'text-success  text-center')
             return redirect("/user")
 
-        flash("Invalid credentials.", 'danger text-center')
+        flash("Invalid credentials.", 'text-danger text-center')
 
     return render_template('login.html', form=form)
 
@@ -106,7 +106,7 @@ def logout():
     """Handle logout of user."""
 
     logout_user()
-    flash('Goodbye!', 'success text-center')
+    flash('Goodbye!', 'text-success text-center')
 
     return redirect('/login')
 
@@ -120,5 +120,5 @@ def user_details():
     """Show User Details"""
 
     user = g.user
-
+    
     return render_template("user.html", user=user)   
