@@ -11,6 +11,7 @@ CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
 
+#export FLASK_ENV=development
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgres:///youGuessedIt'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

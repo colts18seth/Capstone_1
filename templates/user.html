@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
 {% block nav_left %}
-<a href="/logout"><span class="text-light col-2">
-        {{ user.username }} (Logout)</span></a>
+<a href="/logout" class="col-2 justify-content-start">
+    <span class="text-light">
+        {{ user.username }} (Logout)
+    </span>
+</a>
 {% endblock %}
 {% block nav_right %}
-<span class="text-light col-2">
-    <form class="form-inline">
+<span class="text-light col-3">
+    <form class="form-inline justify-content-end">
         <input class="form-control mr-sm-2" type="search" placeholder="Search Users" aria-label="Search">
         <button class="btn btn-outline-light" type="submit">Search</button>
     </form>
@@ -21,4 +24,9 @@
 {% endfor %}
 {% endif %}
 {% endwith %}
+
+<div class="col m-3">
+    <img class="rounded" src="{{ user.image_url }}" alt="default">
+</div>
+
 {% endblock %}
