@@ -11,15 +11,8 @@ a:hover {
     text-decoration: none;
 }
 
-img {
-    width: 250px;
-}
-
-.username {
-    width: 250px;
-}
-
-.user-column {
+img, .username {
+    max-width: 100%;
     width: 250px;
 }
 

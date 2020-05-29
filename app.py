@@ -94,7 +94,7 @@ def login():
 
         if user:
             login_user(user)
-            flash(f"Hello, {user.username}!", 'text-success  text-center')
+            flash(f"Hello!", 'text-success  text-center')
             return redirect(f"/user/{user.id}")
 
         flash("Invalid credentials.", 'text-danger text-center')
