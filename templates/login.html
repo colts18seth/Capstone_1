@@ -12,7 +12,7 @@
 
 <div class="container border border-dark mt-5 p-5 pt-0 bg-light">
     <h2 class="pb-4 text-center">Login!</h2>
-    <form method="POST" id="user_form">
+    <form method="POST">
         {{ form.hidden_tag() }}
 
         {% for field in form if field.widget.input_type != 'hidden' %}

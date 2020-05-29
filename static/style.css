@@ -12,6 +12,17 @@ a:hover {
 }
 
 img {
-    max-width: 250px;
-    max-height: 250px;
+    width: 250px;
+}
+
+.username {
+    width: 250px;
+}
+
+.user-column {
+    width: 250px;
+}
+
+.stats {
+    margin-left: -2rem;
 }

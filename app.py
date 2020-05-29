@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, flash, redirect, session, g
 from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
-from forms import AddUserForm, AddImageForm, LoginForm
+from forms import AddUserForm, AddImageForm, LoginForm, NewQuiz
 from models import db, connect_db, User, Category, User_Category
 
 CURR_USER_KEY = "curr_user"
@@ -76,7 +76,7 @@ def signup():
 
         login_user(user)
 
-        return redirect("/user")
+        return redirect(f"/user/{user.id}")
 
     else:
         return render_template('signup.html', form=form)
@@ -95,7 +95,7 @@ def login():
         if user:
             login_user(user)
             flash(f"Hello, {user.username}!", 'text-success  text-center')
-            return redirect("/user")
+            return redirect(f"/user/{user.id}")
 
         flash("Invalid credentials.", 'text-danger text-center')
 
@@ -116,10 +116,22 @@ def logout():
 #User Routes
 ##################################################
 
-@app.route('/user')
-def user_details():
+@app.route('/user/<int:user_id>')
+def user_details(user_id):
     """Show User Details"""
 
     user = g.user
     
-    return render_template("user.html", user=user)   
+    return render_template("user.html", user=user)
+
+##################################################
+#Category Routes
+##################################################
+
+@app.route('/quiz', methods=["GET", "POST"])
+def quiz():
+    """Start New Quiz"""
+
+    form = NewQuiz()
+    user = g.user
+    return render_template('quiz.html', form=form, user=user)

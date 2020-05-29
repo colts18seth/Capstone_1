@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block nav_left %}
-<a href="/logout" class="col-2 justify-content-start">
+<a href="/logout" class="col-3 justify-content-start">
     <span class="text-light">
-        {{ user.username }} (Logout)
+        Logout
     </span>
 </a>
 {% endblock %}
@@ -25,8 +25,22 @@
 {% endif %}
 {% endwith %}
 
-<div class="col m-3">
-    <img class="rounded" src="{{ user.image_url }}" alt="default">
+<div class="row">
+    <div class="col-2 m-3 d-flex flex-column text-center">
+        <div class="text-center">
+            <img class="rounded" src="{{ user.image_url }}" alt="default">
+        </div>
+        <div class="bg-dark text-light username text-center m-auto">{{ user.username }}</div>
+        <a href="/quiz"><button type="button" class="btn btn-dark m-3">New Quiz</button></a>
+    </div>
+
+    <div class="col m-3">
+        <h2 class="text-center stats">{{ user.username }}'s Stats</h2>
+        <div class="border border-dark">
+            No stats yet. Start a Quiz!
+        </div>
+    </div>
+    <div class="col-2"></div>
 </div>
 
 {% endblock %}
