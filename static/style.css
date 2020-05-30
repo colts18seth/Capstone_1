@@ -19,3 +19,7 @@ img, .username {
 .stats {
     margin-left: -2rem;
 }
+
+.right {
+    background-color: green;
+}

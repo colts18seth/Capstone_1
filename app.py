@@ -94,7 +94,6 @@ def login():
 
         if user:
             login_user(user)
-            flash(f"Hello!", 'text-success  text-center')
             return redirect(f"/user/{user.id}")
 
         flash("Invalid credentials.", 'text-danger text-center')
@@ -107,7 +106,6 @@ def logout():
     """Handle logout of user."""
 
     logout_user()
-    flash('Goodbye!', 'text-success text-center')
 
     return redirect('/login')
 

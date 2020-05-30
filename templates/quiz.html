@@ -1,7 +1,17 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block nav_left %}
+<a href="/user/{{ user.id }}" class="col-3 justify-content-start">
+    <span class="text-light">
+        Quit
+    </span>
+</a>
+{% endblock %}
+{% block nav_right %}
+<span class="text-light col-3"></span>
+{% endblock %}
 
+{% block content %}
 <div id="quizForm" class="container border border-dark mt-5 p-5 pt-0 bg-light">
     <h2 class="pb-4 text-center">Start New Quiz</h2>
     <form>
@@ -28,17 +38,18 @@
 </div>
 
 <div id="questions" class="container border border-dark mt-5 p-5 pt-0 bg-light">
-
     <h2 id="quizTitle" class="pb-4 text-center"></h2>
+    <hr>
+    <div>
+        <ol id="quizQuestion"></ol>
+    </div>
+    <div id="submitQuiz">
+        <button type="button" class="btn btn-dark btn-lg btn-block mt-3">Submit</button>
+    </div>
+</div>
 
-        <div>
-            <ol id="quizQuestion"></ol>
-        </div>
-    
-        <div id="submitQuiz">
-            <button type="button" class="btn btn-dark btn-lg btn-block mt-3">Submit</button>
-        </div>
-
+<div id="answers">
+    <h1>Answers:</h1>
 </div>
 
 {% endblock %}
