@@ -16,7 +16,11 @@ class User(db.Model):
     image_url = db.Column(db.Text, default="/static/default-pic.png")
     
     user_category = db.relationship("User_Category", 
-                                                    backref="user")
+                                    backref="user")
+
+    # categories = db.relationship('Category',
+    #                             secondary='user_category',
+    #                             backref='users')
 
     def __repr__(self):
         return f"<User #{self.id} - {self.username}>"
@@ -56,7 +60,10 @@ class Category(db.Model):
     __tablename__ = "categories"
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text, nullable=False)
+    name = db.Column(db.Text, unique=True, nullable=False)
+
+    user_category = db.relationship("User_Category", 
+                                    backref="category")
 
     def __repr__(self):
         return f"<Category #{self.id} - {self.name}>"
@@ -75,6 +82,7 @@ class User_Category(db.Model):
     questions_answered = db.Column(db.Integer, nullable=False,
                                                             default=0)
     correct_answers = db.Column(db.Integer, nullable=False, default=0)
+    
 
     def __repr__(self):
         return f"<User-Category: {self.user_id} - {self.category_id}>"
