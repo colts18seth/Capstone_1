@@ -14,9 +14,9 @@ class User(db.Model):
     username = db.Column(db.Text, nullable=False, unique=True)
     password = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.Text, default="/static/default-pic.png")
-
-    categories = db.relationship("Category", 
-                                                    secondary="user_category" ,backref="users")
+    
+    user_category = db.relationship("User_Category", 
+                                                    backref="user")
 
     def __repr__(self):
         return f"<User #{self.id} - {self.username}>"
@@ -59,7 +59,7 @@ class Category(db.Model):
     name = db.Column(db.Text, nullable=False)
 
     def __repr__(self):
-        return f"<Category #{self.id} - {self.name}"
+        return f"<Category #{self.id} - {self.name}>"
 
 
 class User_Category(db.Model):
@@ -77,7 +77,7 @@ class User_Category(db.Model):
     correct_answers = db.Column(db.Integer, nullable=False, default=0)
 
     def __repr__(self):
-        return f"<User-Category: {self.user_id} - {self.category_id}"
+        return f"<User-Category: {self.user_id} - {self.category_id}>"
 
 
 def connect_db(app):

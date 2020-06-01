@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block user %}
+{% if user %}
+{{ user.username }}
+{% endif %}
+{% endblock %}
+
 {% block nav_left %}
 <a href="/user/{{ user.id }}" class="col-3 justify-content-start">
     <span class="text-light">
@@ -48,8 +54,22 @@
     </div>
 </div>
 
-<div id="answers">
-    <h1>Answers:</h1>
-</div>
+<form id="answers" class="container" action="/quiz" method="POST">
+    <div id="quizHidden" hidden>
+        <input id="numQuestionsForm" name="num_Questions" type="text">
+        <input id="categoryForm" name="category" type="text">
+        <input id="correctAnswersForm" name="num_correct_answers" type="text">
+    </div>
+    <div id="correct_answers">
+        <h1 class="m-3 text-center"> Correct Answers:</h1>
+        <hr>
+        <p class="answers"></p>
+    </div>
+    <div id="exitQuiz">
+        <button type="submit" class="btn btn-dark btn-lg btn-block mt-3">
+            Exit
+        </button>
+    </div>
+</form>
 
 {% endblock %}

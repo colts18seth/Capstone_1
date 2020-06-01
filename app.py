@@ -21,6 +21,8 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "secret")
 toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
+# db.drop_all()
+# db.create_all()
 
 ######################################
 #User signup/login/logout
@@ -118,18 +120,50 @@ def logout():
 def user_details(user_id):
     """Show User Details"""
 
-    user = g.user
+    #########################################
+    #user.user_categories = category stats
     
-    return render_template("user.html", user=user)
+    return render_template("user.html", user=g.user)
 
 ##################################################
-#Category Routes
+#Quiz Routes
 ##################################################
 
 @app.route('/quiz', methods=["GET", "POST"])
 def quiz():
     """Start New Quiz"""
 
+    if request.method == "POST":
+        category_form = request.form['category']
+        num_questions = request.form['num_Questions']
+        num_correct_answers = request.form['num_correct_answers']
+
+        if Category.query.filter_by(name=category_form).first():
+            
+            cat = Category.query.filter_by(name=category_form).first()
+            user = g.user
+            user_cat = User_Category.query.filter_by(user_id=user.id, category_id=cat.id).first()
+
+            user_cat.quizzes_taken += 1
+            user_cat.questions_answered += int(num_questions)
+            user_cat.correct_answers += int(num_correct_answers)
+
+            db.session.commit()
+
+        else:
+            category = Category(name=category_form)
+            db.session.add(category)
+            db.session.commit()
+
+            cat = Category.query.filter_by(name=category_form).first()
+            user = g.user
+
+            user_cat = User_Category(user_id=user.id, category_id=cat.id, quizzes_taken=1, questions_answered=num_questions, correct_answers=num_correct_answers)
+            db.session.add(user_cat)
+            db.session.commit()
+
+        return redirect(f'/user/{user.id}')
+    
     form = NewQuiz()
-    user = g.user
-    return render_template('quiz.html', form=form, user=user)
+
+    return render_template('quiz.html', form=form, user=g.user)

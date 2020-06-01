@@ -1,7 +1,12 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block user %}
+{% if user %}
+{{ user.username }}
+{% endif %}
+{% endblock %}
 
+{% block content %}
 <div class="container border border-dark mt-5 p-5 pt-0 bg-light">
     <h2 class="pb-5 text-center">Sign Up Here</h2>
     <form method="POST">

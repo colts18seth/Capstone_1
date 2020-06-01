@@ -1,9 +1,7 @@
 $("#questions").hide()
 $("#answers").hide()
-let num_questions = $('#num_questions').val()
 let correct = []
-let rightIndex = []
-let num_right = 0
+let gotItRight = []
 
 $("#makeQuiz").on("click", function newQuiz(e) {
     e.preventDefault();
@@ -15,14 +13,26 @@ $("#makeQuiz").on("click", function newQuiz(e) {
 $("#submitQuiz").on("click", function checkAnswers(e) {
     e.preventDefault()
 
+    const num_questions = $("#quizQuestion").children().length
+
     for (let i = 0; i < num_questions; i++) {
         const answer = correct[i];
         const selected = $(`input[name=${i}]:checked`).val();
 
         if (answer.includes(selected)) {
-            rightIndex.push(i)
+            gotItRight.push(answer)
         }
     }
+
+    for (let i = 0; i < gotItRight.length; i++) {
+        $("#correct_answers").append(`
+            <li>${gotItRight[i]}</li>
+        `)
+    }
+
+    $("#numQuestionsForm").val(num_questions)
+    $("#categoryForm").val($("#quizTitle").text())
+    $("#correctAnswersForm").val(gotItRight.length)
 
     $("#questions").hide();
     $("#answers").show();
@@ -46,7 +56,7 @@ async function makeQuiz() {
                 <h4>${res[i].question}<h4>
                 <div class='mb-5 ${i}'>
                     <div class='row align-items-center'>
-                        <input type='radio' name=${i} value=${shufAns[0]}
+                        <input checked type='radio' name=${i} value=${shufAns[0]}
                         <label class='m-3'  for='${1}'>${shufAns[0]}</label>
                     </div>
                     <div class='row align-items-center'>
@@ -66,6 +76,7 @@ async function makeQuiz() {
         `)
     }
 }
+
 
 function shuffle(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
