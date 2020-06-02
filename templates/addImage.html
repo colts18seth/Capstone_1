@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block user %}
+{% if user %}
+{{ user.username }}
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="{{ category }} h1 pt-4">{{ message }}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<div class="container border border-dark mt-5 p-5 pt-0 bg-light">
+    <h2 class="pb-4 text-center">Login!</h2>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form if field.widget.input_type != 'hidden' %}
+        {% for error in field.errors %}
+        <span class="text-danger p-3">{{ error }}</span>
+        {% endfor %}
+        {{ field(placeholder=field.label.text, class="form-control") }}
+        {% endfor %}
+
+        <button class="btn btn-dark btn-lg btn-block mt-3">Add Image</button>
+        <div class="d-flex justify-content-center mt-3">
+            <a href="/user/{{user.id}}" class="d-flex align-items-center">
+                <button type="button" class="btn btn-dark btn-lg">
+                    Back
+                </button>
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

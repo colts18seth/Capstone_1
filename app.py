@@ -130,6 +130,43 @@ def user_details(user_id):
     
     return render_template("user.html", user=user)
 
+
+@app.route('/user/<int:user_id>/edit', methods=["GET", "POST"])
+def user_edit(user_id):
+    """ Edit User Image """
+
+    form = AddImageForm()
+
+    user = User.query.get(user_id)
+
+    if form.validate_on_submit():
+        image = request.form['image_url']
+        user.image_url = image
+
+        db.session.commit()
+
+        return redirect(f'/user/{user.id}')
+
+    return render_template('addImage.html', user=user, form=form)
+
+
+@app.route('/otherUser', methods=['POST'])
+def otherUser():
+    """ Show otherUser stats """
+
+    user = g.user
+
+    otherU = request.form['search']
+
+    otherUser = User.query.filter_by(username=otherU).one()
+
+    if otherUser.user_category:
+        user_cat = User_Category.query.filter_by(user_id = otherUser.id).all()
+
+        return render_template("otherUser.html", otherUser=otherUser, user=user, user_cat=user_cat)
+
+    return render_template('otherUser.html', user=user, otherUser=otherUser)
+
 ##################################################
 #Quiz Routes
 ##################################################
@@ -147,13 +184,20 @@ def quiz():
             
             cat = Category.query.filter_by(name=category_form).first()
             user = g.user
-            user_cat = User_Category.query.filter_by(user_id=user.id, category_id=cat.id).first()
 
-            user_cat.quizzes_taken += 1
-            user_cat.questions_answered += int(num_questions)
-            user_cat.correct_answers += int(num_correct_answers)
+            if User_Category.query.filter_by(user_id=user.id, category_id=cat.id).first():
+                user_cat = User_Category.query.filter_by(user_id=user.id, category_id=cat.id).first()
 
+                user_cat.quizzes_taken += 1
+                user_cat.questions_answered += int(num_questions)
+                user_cat.correct_answers += int(num_correct_answers)
+
+                db.session.commit()
+
+            user_cat = User_Category(user_id=user.id, category_id=cat.id, quizzes_taken=1, questions_answered=num_questions, correct_answers=num_correct_answers)
+            db.session.add(user_cat)
             db.session.commit()
+            
 
         else:
             category = Category(name=category_form)
