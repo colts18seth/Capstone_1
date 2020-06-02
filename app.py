@@ -195,6 +195,8 @@ def quiz():
 
                 db.session.commit()
 
+                return redirect(f'/user/{user.id}')
+
             user_cat = User_Category(user_id=user.id, category_id=cat.id, quizzes_taken=1, questions_answered=num_questions, correct_answers=num_correct_answers)
             db.session.add(user_cat)
             db.session.commit()

@@ -56,7 +56,7 @@ async function makeQuiz() {
                 <h4>${res[i].question}<h4>
                 <div class='mb-5 ${i}'>
                     <div class='row align-items-center'>
-                        <input checked type='radio' name=${i} value=${shufAns[0]}
+                        <input type='radio' name=${i} value=${shufAns[0]}
                         <label class='m-3'  for='${1}'>${shufAns[0]}</label>
                     </div>
                     <div class='row align-items-center'>
