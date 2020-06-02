@@ -158,14 +158,15 @@ def otherUser():
 
     otherU = request.form['search']
 
-    otherUser = User.query.filter_by(username=otherU).one()
+    if User.query.filter_by(username=otherU).first():
+        otherUser = User.query.filter_by(username=otherU).first()
 
-    if otherUser.user_category:
-        user_cat = User_Category.query.filter_by(user_id = otherUser.id).all()
+        if otherUser.user_category:
+            user_cat = User_Category.query.filter_by(user_id = otherUser.id).all()
 
-        return render_template("otherUser.html", otherUser=otherUser, user=user, user_cat=user_cat)
+            return render_template("otherUser.html", otherUser=otherUser, user=user, user_cat=user_cat)
 
-    return render_template('otherUser.html', user=user, otherUser=otherUser)
+    return render_template('otherUser.html', user=user)
 
 ##################################################
 #Quiz Routes

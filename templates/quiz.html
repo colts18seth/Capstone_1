@@ -1,11 +1,5 @@
 {% extends 'base.html' %}
 
-{% block user %}
-{% if user %}
-{{ user.username }}
-{% endif %}
-{% endblock %}
-
 {% block nav_left %}
 <a href="/user/{{ user.id }}" class="col-3 justify-content-start">
     <span class="text-light">

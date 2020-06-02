@@ -16,12 +16,6 @@
 </span>
 {% endblock %}
 
-{% block user %}
-{% if user %}
-{{ user.username }}
-{% endif %}
-{% endblock %}
-
 {% block content %}
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -50,8 +44,10 @@
 
     <div id="otherStats" class="col mt-4 mr-4 p-0">
         <div class="border border-dark">
-            <h2 class="text-center my-3">
+            <h2 class="text-center my-3 d-flex justify-content-center">
+                {% if otherUser %}
                 {{ otherUser.username }}'s Stats
+                <a href="/user/{{ user.id }}" class="btn btn-dark ml-5">Back to Profile</a>
             </h2>
             <div class="row m-0">
                 {% if user_cat != None %}
@@ -61,11 +57,18 @@
                         <h5 class="card-title text-center">{{ category.category.name }}</h5>
                         <hr>
                         <p class="card-text">Quizzes Taken: {{ category.quizzes_taken }}</p>
-                        <p class="card-text">Questions Answered: {{ category.questions_answered }}</p>
-                        <p class="card-text">Correct Answers: {{ category.correct_answers }}</p>
+                        <p class="card-text">Total Questions: {{ category.questions_answered }}</p>
+                        <p class="card-text">Correct: {{ category.correct_answers }}</p>
                     </div>
                 </div>
                 {% endfor %}
+                {% endif %}
+                {% else %}
+                <div class="border border-dark">
+                    <h2 class="text-center my-3">
+                        Username Not Found
+                    </h2>
+                </div>
                 {% endif %}
             </div>
         </div>
