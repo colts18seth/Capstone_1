@@ -21,8 +21,8 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "secret")
 toolbar = DebugToolbarExtension(app)
 
 connect_db(app)
-db.drop_all()
-db.create_all()
+# db.drop_all()
+# db.create_all()
 
 ######################################
 #User signup/login/logout
