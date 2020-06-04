@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
 
 {% block nav_left %}
-<a href="/user/{{ user.id }}" class="col-3 justify-content-start">
+<a href="/user/{{ user.id }}" class="d-flex col-12 col-md-2 order-3 order-md-1 justify-content-center">
     <span class="text-light">
         Quit
     </span>
 </a>
 {% endblock %}
+
 {% block nav_right %}
-<span class="text-light col-3"></span>
+<div class="col-2 text-light order-2 order-md-3"></div>
 {% endblock %}
 
 {% block content %}

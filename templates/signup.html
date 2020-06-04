@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container border border-dark mt-5 p-5 pt-0 bg-light">
-    <h2 class="pb-5 text-center">Sign Up Here</h2>
+<div class="container border border-dark my-4 mx-1 p-4 bg-light">
+    <h3 class="pb-4 text-center">Sign Up Here</h3>
     <form method="POST">
         {{ form.hidden_tag() }}
 
@@ -21,17 +21,17 @@
         {{ field(placeholder=field.label.text, class="form-control") }}
         {% endfor %}
 
-        <button class="btn btn-dark btn-lg btn-block mt-3">Sign me up!</button>
-        <div class="d-flex justify-content-center mt-3">
-            <a href="/login" class="d-flex align-items-center">
-                <small class="text-dark mr-3">
-                    Already Signed Up?
-                </small>
-                <button type="button" class="btn btn-dark btn-lg">
-                    Login
-                </button>
-            </a>
-        </div>
+        <button class="btn btn-dark btn-block mt-3">
+            Sign me up!
+        </button>
+        <small class="text-dark d-flex justify-content-center mt-5 mb-2">
+            Already Signed Up?
+        </small>
+        <a href="/login" class="d-flex justify-content-center">
+            <button type="button" class="btn btn-dark">
+                Login
+            </button>
+        </a>
     </form>
 </div>
 
