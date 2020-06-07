@@ -19,6 +19,10 @@ img, .username {
     max-width: 500px;
 }
 
+#searchForm {
+    min-width: 265px;
+}
+
 #search {
     max-width: 150px;
     margin-right: 10px;

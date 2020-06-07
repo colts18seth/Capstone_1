@@ -43,34 +43,54 @@
         </a>
     </div>
 
-    <div id="otherStats" class="col-12 col-lg mt-4 p-0">
-        <div class="border border-dark">
-            <h2 class="text-center my-3">
-                {% if otherUser %}
-                {{ otherUser.username }}'s Stats
-                <a href="/user/{{ user.id }}" class="btn btn-dark ml-5">Back to Profile</a>
-            </h2>
-            <div class="row m-0">
-                {% if user_cat != None %}
-                {% for category in user_cat %}
-                <div class="card col-12 col-md-6 col-lg-4">
-                    <div class="card-body">
-                        <h5 class="card-title text-center">{{ category.category.name }}</h5>
-                        <hr>
-                        <p class="card-text">Quizzes Taken: {{ category.quizzes_taken }}</p>
-                        <p class="card-text">Total Questions: {{ category.questions_answered }}</p>
-                        <p class="card-text">Correct: {{ category.correct_answers }}</p>
+    <div id="wrapper">
+        <div id="otherStats" class="col-12 col-lg mt-4 p-0">
+            <div class="border border-dark">
+                <h2 class="text-center m-3">
+                    {% if otherUser %}
+                    {{ otherUser.username }}'s Stats
+                    {% else %}
+                    This User Has No Stats Yet
+                    {% endif %}
+                    <a href="/user/{{ user.id }}" class="btn btn-dark ml-5">Back to Profile</a>
+                </h2>
+                <div class="row m-0">
+                    {% if user_cat %}
+                    {% for category in user_cat %}
+                    {% if user_cat | length >= 3  %}
+                    <div class="card col-12 col-md-6 col-lg-4">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ category.category.name }}</h5>
+                            <hr>
+                            <p class="card-text">Quizzes Taken: {{ category.quizzes_taken }}</p>
+                            <p class="card-text">Total Questions: {{ category.questions_answered }}</p>
+                            <p class="card-text">Correct: {{ category.correct_answers }}</p>
+                        </div>
                     </div>
+                    {% elif user_cat | length == 2  %}
+                    <div class="card col-12 col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ category.category.name }}</h5>
+                            <hr>
+                            <p class="card-text">Quizzes Taken: {{ category.quizzes_taken }}</p>
+                            <p class="card-text">Total Questions: {{ category.questions_answered }}</p>
+                            <p class="card-text">Correct: {{ category.correct_answers }}</p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="card col-12">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ category.category.name }}</h5>
+                            <hr>
+                            <p class="card-text">Quizzes Taken: {{ category.quizzes_taken }}</p>
+                            <p class="card-text">Total Questions: {{ category.questions_answered }}</p>
+                            <p class="card-text">Correct: {{ category.correct_answers }}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                    {% endif %}
                 </div>
-                {% endfor %}
-                {% endif %}
-                {% else %}
-                <div class="border border-dark">
-                    <h2 class="text-center my-3">
-                        Username Not Found
-                    </h2>
-                </div>
-                {% endif %}
             </div>
         </div>
     </div>

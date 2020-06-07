@@ -120,13 +120,12 @@ def logout():
 def user_details(user_id):
     """Show User Details"""
 
-    user = User.query.get(user_id)
+    user = User.query.get(user_id)  
 
     if user.user_category:
         user_cat = User_Category.query.filter_by(user_id = user.id).all()
 
-        return render_template("user.html", user=user, user_cat=user_cat)
-        
+        return render_template("user.html", user=user, user_cat=user_cat)        
     
     return render_template("user.html", user=user)
 
