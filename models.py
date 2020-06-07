@@ -15,12 +15,9 @@ class User(db.Model):
     password = db.Column(db.Text, nullable=False)
     image_url = db.Column(db.Text, default="/static/default-pic.png")
     
-    user_category = db.relationship("User_Category", 
+    user_category = db.relationship("User_Category",
+                                    cascade="all,delete", 
                                     backref="user")
-
-    # categories = db.relationship('Category',
-    #                             secondary='user_category',
-    #                             backref='users')
 
     def __repr__(self):
         return f"<User #{self.id} - {self.username}>"

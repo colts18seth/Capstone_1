@@ -9,7 +9,7 @@
 {% endblock %}
 {% block nav_right %}
 <span id="searchForm" class="text-light col-12 col-md-2 order-md-3 mt-3">
-    <form method="POST" action="/otherUser" class="form-inline justify-content-center">
+    <form method="POST" action="/search" class="form-inline justify-content-center">
         <input id="search" name="search" class="form-control" type="search" placeholder="Search Users"
             aria-label="Search">
         <button id="searchButton" class="btn btn-outline-light" type="submit">Search</button>
@@ -22,20 +22,22 @@
 <div class="row m-0">
     <div class="col-12 col-lg-2 p-0 mt-4 text-center mx-auto">
         <div class="text-center m-0 p-0">
-            <a href="/user/{{ user.id }}/edit">
-                <img src="{{ user.image_url }}" alt="default">
-            </a>
+            <img src="{{ user.image_url }}" alt="default">
         </div>
         <div class="bg-dark text-light username text-center m-auto">
             {{ user.username }}
         </div>
+        <a href="/user/{{ user.id }}/edit">
+            <button type="button" class=" btn btn-dark m-3">
+                Edit Profile
+            </button>
+        </a>
         <a href="/quiz">
             <button type="button" class="btn btn-dark m-3">
                 New Quiz
             </button>
         </a>
     </div>
-
 
     <div id="wrapper">
         <div id="stats" class="col-12 col-lg mt-4 p-0">

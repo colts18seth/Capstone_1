@@ -16,7 +16,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgres:///youGuessedIt'))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
-app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = True
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', "secret")
 toolbar = DebugToolbarExtension(app)
 
@@ -146,7 +146,22 @@ def user_edit(user_id):
 
         return redirect(f'/user/{user.id}')
 
-    return render_template('addImage.html', user=user, form=form)
+    return render_template('editUser.html', user=user, form=form)
+
+@app.route('/users/delete')
+def delete_user():
+    """Delete user."""
+
+    if not g.user:
+        flash("Access unauthorized.", "danger text-center")
+        return redirect("/")
+
+    logout_user()
+
+    db.session.delete(g.user)
+    db.session.commit()
+
+    return redirect("/signup")
 
 
 @app.route('/otherUser', methods=['POST'])
