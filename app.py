@@ -5,7 +5,7 @@ from flask_debugtoolbar import DebugToolbarExtension
 from sqlalchemy.exc import IntegrityError
 
 from forms import AddUserForm, AddImageForm, LoginForm, NewQuiz
-from models import db, connect_db, User, Category, User_Category
+from models import db, connect_db, User, Category, User_Category, Friend
 
 CURR_USER_KEY = "curr_user"
 
@@ -148,7 +148,7 @@ def user_edit(user_id):
 
     return render_template('editUser.html', user=user, form=form)
 
-@app.route('/users/delete')
+@app.route('/user/delete')
 def delete_user():
     """Delete user."""
 
@@ -164,23 +164,44 @@ def delete_user():
     return redirect("/signup")
 
 
-@app.route('/otherUser', methods=['POST'])
-def otherUser():
-    """ Show otherUser stats """
+@app.route('/user/friends', methods=['GET', 'POST'])
+def userSearch():
+    """ Show User friends and their stats """
 
     user = g.user
 
-    otherU = request.form['search']
+    if request.method == "POST":
+        search = request.form['search']
 
-    if User.query.filter_by(username=otherU).first():
-        otherUser = User.query.filter_by(username=otherU).first()
+        if not search:
+            users = User.query.all()
+        else:
+            users = User.query.filter(User.username.like(f"%{search}%")).all()
+        return render_template("search.html", user=user, users=users)
 
-        if otherUser.user_category:
-            user_cat = User_Category.query.filter_by(user_id = otherUser.id).all()
 
-            return render_template("otherUser.html", otherUser=otherUser, user=user, user_cat=user_cat)
+    # if User.query.filter_by(username=otherU).first():
+    #     otherUser = User.query.filter_by(username=otherU).first()
 
-    return render_template('otherUser.html', user=user)
+    #     if otherUser.user_category:
+    #         user_cat = User_Category.query.filter_by(user_id = otherUser.id).all()
+
+    #         return render_template("otherUser.html", otherUser=otherUser, user=user, user_cat=user_cat)
+
+@app.route('/user/friends/add/<int:user_id>')
+def addFriend(user_id):
+    """ Add friend to user """
+
+    user = g.user
+    friend = User.query.get(user_id)
+
+    newFriend = Friend(user_being_followed_id=user.id, user_following_id=friend.id)
+
+    db.session.add(newFriend)
+    db.session.commit()
+
+    return redirect(f"user/{user.id}")
+    
 
 ##################################################
 #Quiz Routes

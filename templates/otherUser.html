@@ -18,13 +18,6 @@
 {% endblock %}
 
 {% block content %}
-{% with messages = get_flashed_messages(with_categories=true) %}
-{% if messages %}
-{% for category, message in messages %}
-<div class="{{ category }} h1 py-4">{{ message }}</div>
-{% endfor %}
-{% endif %}
-{% endwith %}
 
 <div class="row m-0">
     <div class="col-12 col-lg-2 p-0 mt-4 text-center mx-auto">

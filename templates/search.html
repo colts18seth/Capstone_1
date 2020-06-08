@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block nav_left %}
+<a href="/logout" class="col-12 col-lg-2 order-3 order-md-1 mt-3">
+    <span class="text-light d-flex justify-content-center">
+        Logout
+    </span>
+</a>
+{% endblock %}
+{% block nav_right %}
+<span id="searchForm" class="text-light col-12 col-md-2 order-md-3 mt-3">
+    <form method="POST" action="/user/friends" class="form-inline justify-content-center">
+        <input id="search" name="search" class="form-control" type="search" placeholder="Search Users"
+            aria-label="Search">
+        <button id="searchButton" class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+</span>
+{% endblock %}
+
+{% block content %}
+
+<div class="row m-0">
+    <div class="col-12 col-lg-2 p-0 mt-4 text-center mx-auto">
+        <div class="text-center m-0 p-0">
+            <a href="/user/{{ user.id }}/edit">
+                <img src="{{ user.image_url }}" alt="default">
+            </a>
+        </div>
+        <div class="bg-dark text-light username text-center m-auto">
+            {{ user.username }}
+        </div>
+        <a href="/quiz">
+            <button type="button" class="btn btn-dark m-3">
+                New Quiz
+            </button>
+        </a>
+    </div>
+
+    <div id="wrapper">
+        <div id="otherStats" class="col-12 col-lg mt-4 p-0">
+            <div class="border border-dark">
+                <h2 class="text-center m-3">
+                    {% if users %}
+                    Matching Usernames:
+                    {% else %}
+                    No User With This Name
+                    {% endif %}
+                    <a href="/user/{{ user.id }}" class="btn btn-dark ml-5">Back to Profile</a>
+                </h2>
+                <div class="row m-0">
+                    {% for user in users %}
+                    {% if user.username == g.user.username %}
+                    <div class="card col-12 col-md-6 col-lg-4">
+                        <div class=" card-body text-center">
+                            <h5 class="card-title text-center">{{ user.username }}</h5>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if users | length >= 3 %}
+                    <div class="card col-12 col-md-6 col-lg-4">
+                        <div class=" card-body text-center">
+                            <h5 class="card-title text-center">{{ user.username }}</h5>
+                            <a href="/user/friends/add/{{ user.id }}">
+                                <button class="btn btn-dark">
+                                    Add Friend
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    {% elif users | length == 2  %}
+                    <div class="card col-12 col-md-6">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ user.username }}</h5>
+                            <a href="/user/friends/add/{{ user.id }}">
+                                <button class="btn btn-dark">
+                                    Add Friend
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="card col-12">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">{{ user.username }}</h5>
+                            <a href="/user/friends/add/{{ user.id }}">
+                                <button class="btn btn-dark">
+                                    Add Friend
+                                </button>
+                            </a>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

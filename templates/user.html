@@ -9,7 +9,7 @@
 {% endblock %}
 {% block nav_right %}
 <span id="searchForm" class="text-light col-12 col-md-2 order-md-3 mt-3">
-    <form method="POST" action="/search" class="form-inline justify-content-center">
+    <form method="POST" action="/user/friends" class="form-inline justify-content-center">
         <input id="search" name="search" class="form-control" type="search" placeholder="Search Users"
             aria-label="Search">
         <button id="searchButton" class="btn btn-outline-light" type="submit">Search</button>
@@ -24,9 +24,14 @@
         <div class="text-center m-0 p-0">
             <img src="{{ user.image_url }}" alt="default">
         </div>
-        <div class="bg-dark text-light username text-center m-auto">
+        <div class="bg-dark text-light username text-center mx-auto">
             {{ user.username }}
         </div>
+        <a href="/user/friends">
+            <button class=" btn btn-dark username mx-auto mt-1">
+                Friends
+            </button>
+        </a>
         <a href="/user/{{ user.id }}/edit">
             <button type="button" class=" btn btn-dark m-3">
                 Edit Profile
