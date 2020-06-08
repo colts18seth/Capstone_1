@@ -179,7 +179,10 @@ def userSearch():
             users = User.query.filter(User.username.like(f"%{search}%")).all()
         return render_template("search.html", user=user, users=users)
 
+    else:
+        friends = user.following
 
+        return render_template('friends.html', user=user, friends=friends)
     # if User.query.filter_by(username=otherU).first():
     #     otherUser = User.query.filter_by(username=otherU).first()
 
@@ -200,7 +203,21 @@ def addFriend(user_id):
     db.session.add(newFriend)
     db.session.commit()
 
-    return redirect(f"user/{user.id}")
+    return redirect(f"/user/{user.id}")
+
+
+@app.route('/user/friend/<int:friend_id>/details')
+def showFriend(friend_id):
+    """ Show Friend Details """
+
+    user = g.user
+    friend = User.query.get(friend_id)
+
+    if friend.user_category:
+        user_cat = friend.user_category
+        return render_template('showFriend.html', user=user, friend=friend, user_cat=user_cat)
+
+    return render_template('showFriend.html', user=user, friend=friend)
     
 
 ##################################################

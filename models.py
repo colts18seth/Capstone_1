@@ -5,6 +5,23 @@ bcrypt = Bcrypt()
 db = SQLAlchemy()
 
 
+class Friend(db.Model):
+    """ Users - Friends connection """
+
+    __tablename__= "friends"
+
+    user_being_followed_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete="cascade"),
+        primary_key=True
+    )
+
+    user_following_id = db.Column(
+        db.Integer,
+        db.ForeignKey('users.id', ondelete="cascade"),
+        primary_key=True
+    ) 
+
 class User(db.Model):
     """ User in the system """
 
@@ -19,18 +36,18 @@ class User(db.Model):
                                     cascade="all,delete", 
                                     backref="user")
 
-    followers = db.relationship(
-        "User",
-        secondary="friends",
-        primaryjoin=(Friend.user_being_followed_id == id),
-        secondaryjoin=(Friend.user_following_id == id)
-    )
+    # followers = db.relationship(
+    #     "User",
+    #     secondary="friends",
+    #     primaryjoin=(Friend.user_being_followed_id == id),
+    #     secondaryjoin=(Friend.user_following_id == id)
+    # )
 
     following = db.relationship(
         "User",
         secondary="friends",
-        primaryjoin=(Friend.user_following_id == id),
-        secondaryjoin=(Friend.user_being_followed_id == id)
+        primaryjoin=(Friend.user_being_followed_id == id),
+        secondaryjoin=(Friend.user_following_id == id)
     )
 
     def __repr__(self):
@@ -78,24 +95,6 @@ class Category(db.Model):
 
     def __repr__(self):
         return f"<Category #{self.id} - {self.name}>"
-
-
-class Friend(db.Model):
-    """ Users - Friends connection """
-
-    __tablename__= "friends"
-
-    user_being_followed_id = db.Column(
-        db.Integer,
-        db.ForeignKey('user.id', ondelete="cascade"),
-        primary_key=True
-    )
-
-    user_following_id = db.Column(
-        db.Integer,
-        db.ForeignKey('user.id', ondelete="cascade"),
-        primary_key=True
-    )    
 
 
 class User_Category(db.Model):

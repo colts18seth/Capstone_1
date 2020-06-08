@@ -27,16 +27,6 @@
         <div class="bg-dark text-light username text-center mx-auto">
             {{ user.username }}
         </div>
-        <a href="/user/friends">
-            <button class=" btn btn-dark username mx-auto mt-1">
-                Friends
-            </button>
-        </a>
-        <a href="/user/{{ user.id }}/edit">
-            <button type="button" class=" btn btn-dark m-2">
-                Edit Profile
-            </button>
-        </a>
         <a href="/quiz">
             <button type="button" class="btn btn-dark m-2">
                 New Quiz
@@ -49,10 +39,11 @@
             <div class="border border-dark">
                 <h2 class="text-center m-3">
                     {% if user_cat %}
-                    {{ user.username }}'s Stats
+                    {{ friend.username }}'s Stats
                     {% else %}
-                    No Stats Yet, Take a Quiz!
+                    No Stats Yet!
                     {% endif %}
+                    <a href="/user/{{ user.id }}" class="btn btn-dark ml-5">Back to Profile</a>
                 </h2>
                 <div class="row m-0">
                     {% if user_cat %}

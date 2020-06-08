@@ -29,11 +29,6 @@
         <div class="bg-dark text-light username text-center m-auto">
             {{ user.username }}
         </div>
-        <a href="/user/friends">
-            <button class=" btn btn-dark username mx-auto mt-1">
-                Friends
-            </button>
-        </a>
         <a href="/quiz">
             <button type="button" class="btn btn-dark m-3">
                 New Quiz
@@ -45,50 +40,39 @@
         <div id="otherStats" class="col-12 col-lg mt-4 p-0">
             <div class="border border-dark">
                 <h2 class="text-center m-3">
-                    {% if users %}
-                    Matching Usernames:
+                    {% if friends %}
+                    Friends:
                     {% else %}
-                    No User With This Name
+                    No Friends Yet!
                     {% endif %}
                     <a href="/user/{{ user.id }}" class="btn btn-dark ml-5">Back to Profile</a>
                 </h2>
                 <div class="row m-0">
-                    {% for user in users %}                    
-                    {% if users | length >= 4 and user.username != g.user.username %}
+                    {% for friend in friends %}                    
+                    {% if friends | length >= 3 %}
                     <div class="card col-12 col-md-6 col-lg-4">
-                        <div class=" card-body text-center">
-                            <h5 class="w-100 text-center">{{ user.username }}</h5>
-                            <a href="/user/friends/add/{{ user.id }}">
-                                <button class="btn btn-dark">
-                                    Add Friend
-                                </button>
-                            </a>
-                        </div>
+                        <a href="/user/friend/{{ friend.id }}/details" class="text-dark">
+                            <div class="card-body text-center">
+                                <h5 class="w-100 text-center">{{ friend.username }}</h5>
+                            </div>
+                        </a>
                     </div>
-                    {% elif users | length == 3 and user.username != g.user.username %}
+                    {% elif friends | length == 2 %}
                     <div class="card col-12 col-md-6">
-                        <div class="card-body text-center">
-                            <h5 class="w-100 text-center">{{ user.username }}</h5>
-                            <a href="/user/friends/add/{{ user.id }}">
-                                <button class="btn btn-dark">
-                                    Add Friend
-                                </button>
-                            </a>
-                        </div>
+                        <a href="/user/friend/{{ friend.id }}/details" class="text-dark">
+                            <div class="card-body text-center">
+                                <h5 class="w-100 text-center">{{ friend.username }}</h5>
+                            </div>
+                        </a>
                     </div>
                     {% else %}
-                    {% if user.username != g.user.username %}
                     <div class="card col-12">
-                        <div class="card-body text-center">
-                            <h5 class="w-100 text-center">{{ user.username }}</h5>
-                            <a href="/user/friends/add/{{ user.id }}">
-                                <button class="btn btn-dark">
-                                    Add Friend
-                                </button>
-                            </a>
-                        </div>
+                        <a href="/user/friend/{{ friend.id }}/details" class="text-dark">
+                            <div class="card-body text-center">
+                                <h5 class="w-100 text-center">{{ friend.username }}</h5>
+                            </div>
+                        </a>
                     </div>
-                    {% endif %}
                     {% endif %}
                     {% endfor %}
                 </div>
