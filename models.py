@@ -36,13 +36,6 @@ class User(db.Model):
                                     cascade="all,delete", 
                                     backref="user")
 
-    # followers = db.relationship(
-    #     "User",
-    #     secondary="friends",
-    #     primaryjoin=(Friend.user_being_followed_id == id),
-    #     secondaryjoin=(Friend.user_following_id == id)
-    # )
-
     following = db.relationship(
         "User",
         secondary="friends",

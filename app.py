@@ -191,16 +191,29 @@ def userSearch():
 
     #         return render_template("otherUser.html", otherUser=otherUser, user=user, user_cat=user_cat)
 
-@app.route('/user/friends/add/<int:user_id>')
-def addFriend(user_id):
+@app.route('/user/friends/add/<int:friend_id>')
+def addFriend(friend_id):
     """ Add friend to user """
 
     user = g.user
-    friend = User.query.get(user_id)
+    friend = User.query.get(friend_id)
 
     newFriend = Friend(user_being_followed_id=user.id, user_following_id=friend.id)
 
     db.session.add(newFriend)
+    db.session.commit()
+
+    return redirect(f"/user/{user.id}")
+
+
+@app.route('/user/friends/delete/<int:friend_id>')
+def deleteFriend(friend_id):
+    """ Remove friend from user """
+
+    user = g.user
+    friend = Friend.query.get()
+################################################
+    db.session.delete(friend)
     db.session.commit()
 
     return redirect(f"/user/{user.id}")
