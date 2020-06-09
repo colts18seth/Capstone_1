@@ -18,7 +18,6 @@
 {% endblock %}
 
 {% block content %}
-
 <div class="row m-0">
     <div class="col-12 col-lg-2 p-0 mt-4 text-center mx-auto">
         <div class="text-center m-0 p-0">
@@ -38,30 +37,22 @@
 
     <div id="wrapper">
         <div id="otherStats" class="col-12 col-lg mt-4 p-0">
-            <div class="border border-dark">
+            <div class="border border-dark text-center">
+                <a href="/user/{{ user.id }}" class="btn btn-dark mt-2">Back to Profile</a>
                 <h2 class="text-center m-3">
                     {% if friends %}
                     Friends:
                     {% else %}
                     No Friends Yet!
                     {% endif %}
-                    <a href="/user/{{ user.id }}" class="btn btn-dark ml-5">Back to Profile</a>
                 </h2>
                 <div class="row m-0">
-                    {% for friend in friends %}                    
-                    {% if friends | length >= 3 %}
-                    <div class="card col-12 col-md-6 col-lg-4">
-                        <a href="/user/friend/{{ friend.id }}/details" class="text-dark">
-                            <div class="card-body text-center">
-                                <h5 class="w-100 text-center">{{ friend.username }}</h5>
-                            </div>
-                        </a>
-                    </div>
-                    {% elif friends | length == 2 %}
+                    {% for friend in friends %}
+                    {% if friends | length >= 2 %}
                     <div class="card col-12 col-md-6">
                         <a href="/user/friend/{{ friend.id }}/details" class="text-dark">
                             <div class="card-body text-center">
-                                <h5 class="w-100 text-center">{{ friend.username }}</h5>
+                                <h5 class="text-center">{{ friend.username }}</h5>
                             </div>
                         </a>
                     </div>
@@ -69,7 +60,7 @@
                     <div class="card col-12">
                         <a href="/user/friend/{{ friend.id }}/details" class="text-dark">
                             <div class="card-body text-center">
-                                <h5 class="w-100 text-center">{{ friend.username }}</h5>
+                                <h5 class="text-center">{{ friend.username }}</h5>
                             </div>
                         </a>
                     </div>
@@ -80,5 +71,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
