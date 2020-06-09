@@ -183,13 +183,7 @@ def userSearch():
         friends = user.following
 
         return render_template('friends.html', user=user, friends=friends)
-    # if User.query.filter_by(username=otherU).first():
-    #     otherUser = User.query.filter_by(username=otherU).first()
 
-    #     if otherUser.user_category:
-    #         user_cat = User_Category.query.filter_by(user_id = otherUser.id).all()
-
-    #         return render_template("otherUser.html", otherUser=otherUser, user=user, user_cat=user_cat)
 
 @app.route('/user/friends/add/<int:friend_id>')
 def addFriend(friend_id):
@@ -203,7 +197,7 @@ def addFriend(friend_id):
     db.session.add(newFriend)
     db.session.commit()
 
-    return redirect(f"/user/{user.id}")
+    return redirect(f"/user/friends")
 
 
 @app.route('/user/friends/delete/<int:friend_id>')
@@ -211,12 +205,12 @@ def deleteFriend(friend_id):
     """ Remove friend from user """
 
     user = g.user
-    friend = Friend.query.get()
+    friend = Friend.query.filter_by(user_being_followed_id=user.id, user_following_id=friend_id).one()
 ################################################
     db.session.delete(friend)
     db.session.commit()
 
-    return redirect(f"/user/{user.id}")
+    return redirect("/user/friends")
 
 
 @app.route('/user/friend/<int:friend_id>/details')
