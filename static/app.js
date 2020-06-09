@@ -49,26 +49,26 @@ async function makeQuiz() {
 
         correct.push(res[i].correct_answer)
 
-        const answers = allAnswers(res[i]);
+        const answers = allAnswers(res[i]);        
         const shufAns = shuffle(answers);
         $("#quizQuestion").append(`
             <li>
                 <h4>${res[i].question}<h4>
                 <div class='mb-5 ${i}'>
                     <div class='row align-items-center'>
-                        <input checked type='radio' name=${i} value=${shufAns[0]}
+                        <input checked type='radio' name=${i} value='${shufAns[0]}'
                         <label class='m-3'  for='${1}'>${shufAns[0]}</label>
                     </div>
                     <div class='row align-items-center'>
-                        <input type='radio' name=${i} value=${shufAns[1]}
+                        <input type='radio' name=${i} value='${shufAns[1]}'
                         <label class='m-3 for='${2}'>${shufAns[1]}</label>
                     </div>
                     <div class='row align-items-center'>
-                        <input type='radio' name=${i} value=${shufAns[2]}
+                        <input type='radio' name=${i} value='${shufAns[2]}'
                         <label class='m-3 for='${3}'>${shufAns[2]}</label>
                     </div>
                     <div class='row align-items-center'>
-                        <input type='radio' name=${i} value=${shufAns[3]}
+                        <input type='radio' name=${i} value='${shufAns[3]}'
                         <label class='m-3 for='${4}'>${shufAns[3]}</label>
                     </div>
                 </div>                      
